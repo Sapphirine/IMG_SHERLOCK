@@ -1,0 +1,41 @@
+ELA MLP
+LR: .2
+momentum: .7
+epoch: 500
+[02:19:03.779801] score:  [0.5939216244047967, 0.663768115942029]
+
+
+
+
+
+
+Tp_D_NRD_S_B_ani20002_nat20042 broken?
+
+
+2   9-12
+3   12-16
+4   15-20
+5   18-24
+6   21
+7   27-30
+
+
+CUDA_VISIBLE_DEVICES=""
+
+
+ELA
+python3 train_model.py -al ela -a output/ela/CASIA_V2/Au/diff -t output/ela/CASIA_V2/Tp/diff -m output/models/ela.model -p output/models/ela.png
+
+CNN
+python train_model.py -al cnn -a resources/casia2/Au_128_128 -t resources/casia2/Tp_128_128 -m output/models/cnn.model -p output/models/cnn.png
+
+ELA CNN
+python train_model.py -al cnn -a output/ela/CASIA_V2/Au/diff -t output/ela/CASIA_V2/Tp/diff -m output/models/cnn_ela.model -p output/models/cnn_ela.png
+
+ELA CNN patches
+python train_model.py -al cnn -a output/ela/CASIA_V2_PATCHES/Au/diff -t output/ela/CASIA_V2_PATCHES/Tp/diff -m output/models/cnn_ela.model -p output/models/cnn_ela_patches.png
+
+ELA CNN auto patches
+python train_model.py -al cnn -a output/ela/CASIA_V2_PATCHES/Au/diff -t output/ela/CASIA_V2_AUTO_PATCHES/Tp/diff -m output/models/cnn_ela_auto.model -p output/models/cnn_ela_auto.png
+
+python test_video.py -i resources/videos/Tp_obama_360.mp4 -m output/models/cnn_ela_patches.model
